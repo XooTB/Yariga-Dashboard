@@ -1,6 +1,4 @@
-import React from "react";
-
-import { Refine, AuthProvider } from "@pankod/refine-core";
+import { Refine } from "@pankod/refine-core";
 import {
   notificationProvider,
   RefineSnackbarProvider,
@@ -10,15 +8,29 @@ import {
   ErrorComponent,
 } from "@pankod/refine-mui";
 
+// Page Imports
+import {
+  Login,
+  Home,
+  MyProfile,
+  PropertyDetails,
+  EditProfile,
+  AllProperties,
+  CreateProperty,
+} from "./pages";
+
+// Provider Imports
+
 import dataProvider from "@pankod/refine-simple-rest";
 import { MuiInferencer } from "@pankod/refine-inferencer/mui";
 import routerProvider from "@pankod/refine-react-router-v6";
 import axios, { AxiosRequestConfig } from "axios";
-import { ColorModeContextProvider } from "contexts";
+import { ColorModeContextProvider } from "contexts/ColorModeContext";
 import { Title, Sider, Layout, Header } from "components/layout";
-import { Login } from "pages/login";
-import { CredentialResponse } from "interfaces/google";
-import { parseJwt } from "utils/parse-jwt";
+import { authProvider } from "contexts/AuthContext";
+import { VillaOutlined } from "@mui/icons-material";
+
+// Axios Instance
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
@@ -34,58 +46,9 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
   return request;
 });
 
+// Main App
+
 function App() {
-  const authProvider: AuthProvider = {
-    login: ({ credential }: CredentialResponse) => {
-      const profileObj = credential ? parseJwt(credential) : null;
-
-      if (profileObj) {
-        localStorage.setItem(
-          "user",
-          JSON.stringify({
-            ...profileObj,
-            avatar: profileObj.picture,
-          })
-        );
-      }
-
-      localStorage.setItem("token", `${credential}`);
-
-      return Promise.resolve();
-    },
-    logout: () => {
-      const token = localStorage.getItem("token");
-
-      if (token && typeof window !== "undefined") {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        axios.defaults.headers.common = {};
-        window.google?.accounts.id.revoke(token, () => {
-          return Promise.resolve();
-        });
-      }
-
-      return Promise.resolve();
-    },
-    checkError: () => Promise.resolve(),
-    checkAuth: async () => {
-      const token = localStorage.getItem("token");
-
-      if (token) {
-        return Promise.resolve();
-      }
-      return Promise.reject();
-    },
-
-    getPermissions: () => Promise.resolve(),
-    getUserIdentity: async () => {
-      const user = localStorage.getItem("user");
-      if (user) {
-        return Promise.resolve(JSON.parse(user));
-      }
-    },
-  };
-
   return (
     <ColorModeContextProvider>
       <CssBaseline />
@@ -98,12 +61,27 @@ function App() {
           catchAll={<ErrorComponent />}
           resources={[
             {
-              name: "posts",
+              name: "Property",
+              list: AllProperties,
+              create: CreateProperty,
+              show: PropertyDetails,
+              icon: <VillaOutlined />,
+            },
+            {
+              name: "Agent",
               list: MuiInferencer,
-              edit: MuiInferencer,
-              show: MuiInferencer,
-              create: MuiInferencer,
-              canDelete: true,
+            },
+            {
+              name: "review",
+              list: MuiInferencer,
+            },
+            {
+              name: "message",
+              list: MuiInferencer,
+            },
+            {
+              name: "my-property",
+              list: MuiInferencer,
             },
           ]}
           Title={Title}
@@ -113,6 +91,7 @@ function App() {
           routerProvider={routerProvider}
           authProvider={authProvider}
           LoginPage={Login}
+          DashboardPage={Home}
         />
       </RefineSnackbarProvider>
     </ColorModeContextProvider>
