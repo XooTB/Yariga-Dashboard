@@ -61,14 +61,14 @@ function App() {
           catchAll={<ErrorComponent />}
           resources={[
             {
-              name: "Property",
+              name: "properties",
               list: AllProperties,
               create: CreateProperty,
               show: PropertyDetails,
               icon: <VillaOutlined />,
             },
             {
-              name: "Agent",
+              name: "agents",
               list: MuiInferencer,
             },
             {

@@ -193,7 +193,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
                 sx={{
                   justifyContent: "center",
                   minWidth: 36,
-                  color: "primary.contrastText",
+                  color: isSelected ? "#fff" : "#808191",
                 }}
               >
                 {icon ?? <ListOutlined />}
@@ -288,7 +288,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
           sx={{
             justifyContent: "center",
             minWidth: 36,
-            color: "#808191",
+            color: "c",
           }}
         >
           <Logout />
@@ -414,7 +414,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
           <Button
             sx={{
               background: "#475BE8",
-              color: "primary.contrastText",
+              color: "#FCFCFC",
               textAlign: "center",
               borderRadius: 0,
               borderTop: "1px solid #ffffff1a",
@@ -422,6 +422,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
                 background: "#1e36e8",
               },
             }}
+            style={{ backgroundColor: "#1e36e8" }}
             fullWidth
             size="large"
             onClick={() => setCollapsed((prev) => !prev)}
