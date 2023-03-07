@@ -117,9 +117,13 @@ const FormComponent = ({
                 Property photo
               </Typography>
               <Button
-                // @ts-ignore
-                component="lable"
-                className="w-fit text-[#2ed490] capitalize font-base"
+                component="label"
+                sx={{
+                  width: "fit-content",
+                  color: "#2ed480",
+                  textTransform: "capitalize",
+                  fontSize: 16,
+                }}
               >
                 Upload *
                 <input
@@ -138,7 +142,7 @@ const FormComponent = ({
             </Typography>
           </Stack>
           <CustomButton
-            type="Submit"
+            type="submit"
             title={formLoading ? "Submitting..." : "Submit"}
             backgroundColor="#475Be8"
             color="#FCFCFC"

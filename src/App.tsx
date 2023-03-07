@@ -17,6 +17,7 @@ import {
   EditProfile,
   AllProperties,
   CreateProperty,
+  Agents,
 } from "./pages";
 
 // Provider Imports
@@ -55,7 +56,7 @@ function App() {
       <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
       <RefineSnackbarProvider>
         <Refine
-          dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
+          dataProvider={dataProvider(import.meta.env.VITE_API)}
           notificationProvider={notificationProvider}
           ReadyPage={ReadyPage}
           catchAll={<ErrorComponent />}
@@ -69,7 +70,7 @@ function App() {
             },
             {
               name: "agents",
-              list: MuiInferencer,
+              list: Agents,
             },
             {
               name: "review",
