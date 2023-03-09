@@ -17,7 +17,9 @@ import {
   EditProfile,
   AllProperties,
   CreateProperty,
+  EditProperty,
   Agents,
+  AgentProfile,
 } from "./pages";
 
 // Provider Imports
@@ -29,7 +31,13 @@ import axios, { AxiosRequestConfig } from "axios";
 import { ColorModeContextProvider } from "contexts/ColorModeContext";
 import { Title, Sider, Layout, Header } from "components/layout";
 import { authProvider } from "contexts/AuthContext";
-import { VillaOutlined } from "@mui/icons-material";
+import {
+  VillaOutlined,
+  PeopleAltOutlined,
+  AccountCircleOutlined,
+  StarOutlineRounded,
+  ChatBubbleOutline,
+} from "@mui/icons-material";
 
 // Axios Instance
 
@@ -64,25 +72,32 @@ function App() {
             {
               name: "properties",
               list: AllProperties,
-              create: CreateProperty,
               show: PropertyDetails,
+              create: CreateProperty,
+              edit: EditProperty,
               icon: <VillaOutlined />,
             },
             {
               name: "agents",
               list: Agents,
+              show: AgentProfile,
+              icon: <PeopleAltOutlined />,
             },
             {
-              name: "review",
-              list: MuiInferencer,
+              name: "reviews",
+              list: Home,
+              icon: <StarOutlineRounded />,
             },
             {
-              name: "message",
-              list: MuiInferencer,
+              name: "messages",
+              list: Home,
+              icon: <ChatBubbleOutline />,
             },
             {
-              name: "my-property",
-              list: MuiInferencer,
+              name: "my-profile",
+              options: { label: "My Profile " },
+              list: MyProfile,
+              icon: <AccountCircleOutlined />,
             },
           ]}
           Title={Title}

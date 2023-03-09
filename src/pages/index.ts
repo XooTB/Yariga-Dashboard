@@ -7,6 +7,7 @@ import CreateProperty from "./CreateProperty";
 import AgentProfile from "./AgentProfile";
 import PropertyDetails from "./PropertyDetails";
 import AllProperties from "./AllProperties";
+import EditProperty from "./EditProperty";
 
 export {
   Home,
@@ -18,4 +19,5 @@ export {
   CreateProperty,
   PropertyDetails,
   AllProperties,
+  EditProperty,
 };

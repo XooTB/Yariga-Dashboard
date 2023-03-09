@@ -21,8 +21,8 @@ const PropertyCard = ({
   return (
     <Card
       component={Link}
-      to={`/properties/${id}`}
-      className="max-w-xs p-3 hover:shadow-lg cursor-pointer"
+      to={`/properties/show/${id}`}
+      className=" max-w-[335px] p-3 hover:shadow-lg cursor-pointer"
       elevation={0}
     >
       <CardMedia
